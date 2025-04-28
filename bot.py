@@ -39,6 +39,10 @@ def save_points():
     with open(POINTS_FILE, "w") as f:
         json.dump(user_points, f)
 
+# Dictionary to track the last time a user sent a message
+last_message_time = {}
+last_message_content = {}
+
 # Upon turning bot on
 @bot.event
 async def on_ready():
@@ -56,7 +60,7 @@ async def on_ready():
 async def punish(member: discord.Member, score: int):
     if score <= 0:
         await member.kick(reason="Reached 0 Social Credit score.")
-        print(f"{member} has been banned (Social Credit = 0).")
+        print(f"{member} has been kicked (Social Credit = 0).")
     elif score <= 30:
         await member.timeout(until=discord.utils.utcnow() + timedelta(days=1), reason="Toxic behavior (Social Credit ≤ 30).")
     elif score <= 40:
@@ -68,12 +72,32 @@ async def punish(member: discord.Member, score: int):
     elif score <= 70:
         await member.timeout(until=discord.utils.utcnow() + timedelta(minutes=10), reason="Toxic behavior (Social Credit ≤ 70).")
 
-# Main message logic
+# Main message logic with spam detection
 @bot.event
 async def on_message(message):
     # Make sure bot doesn't get stuck in an infinite loop
     if message.author == bot.user:
         return
+    
+    # Spam protection logic: Check if the user is spamming
+    current_time = time.time()
+    last_time = last_message_time.get(message.author.id, 0)
+    time_diff = current_time - last_time
+    last_message = last_message_content.get(message.author.id, "")
+
+    # Check if the user is sending the same or similar message within the threshold time
+    if message.content == last_message:
+        # If the same message is repeated within the threshold time, treat it as spam
+        print(f"⚠️ {message.author} is spamming the same message.") 
+        current_score = user_points.get(message.author.id, 80) - 10
+        user_points[message.author.id] = max(0, current_score)
+        punish(message.author, current_score)
+        await message.delete()
+        return
+
+    # Update last message time and content
+    last_message_time[message.author.id] = current_time
+    last_message_content[message.author.id] = message.content
     
     # Get sentiment and change user scores
     compound = sia.polarity_scores(message.content)['compound']
@@ -81,7 +105,7 @@ async def on_message(message):
     if (compound > .5):
         change = 1
     elif (compound < -.5):
-        change = -1
+        change = -5
     current_score = user_points.get(message.author.id, 80) + change
 
     user_points[message.author.id] = max(0, current_score)

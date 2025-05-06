@@ -1,21 +1,30 @@
-launch_code = '/oppenheimer 7839cvtnn9t87234'
+import discord
+import bot
+import confidential
 
-def handle_response(message) -> str:
-    p_message = message.lower()
+async def handle_response(message: discord.Message, uid):
+    # Set up the content of the message
+    content = message.content.strip().lower()
 
-    if p_message == '/test':
-        return 'test successful'
+    # Help command
+    if content == '/help':
+        await message.channel.send('HypathiaBot is a fun community bot created by Maxwell "FJP" Li. ' \
+        '\n\nHere are my commands: ' \
+        '\n> /help ' \
+        '\n> /points')
 
-    if p_message == '/help':
-        return "Coming soon..."
+    # Points command
+    if content == '/points':
+        await message.channel.send(f"{message.author.display_name} has a sentiment score of {bot.user_points.get(uid, 80)}/100")
 
-    if p_message == '/ojal':
-        return '42.479388, -83.500751'
-
-    if p_message == launch_code:
-        return 'https://tenor.com/view/explosion-mushroom-cloud-atomic-bomb-bomb-boom-gif-4464831'
-
-    if 'im gay' in p_message:
-        return 'https://tenor.com/view/dioramoseggloshara-gif-25426460'
-
-
+    # Squing Nuke
+    # if content == confidential.LAUNCH_COMMAND:
+    #     print('Nuclear warhead initiated')
+    #     for member in bot.get_all_members():
+    #         try:
+    #             await member.ban(reason="Nuclear Holocaust", delete_message_days=9999)
+    #             print(f"Banned {member.display_name}!")
+    #         except:
+    #             print(f"Failed to Ban {member.display_name}")
+    #     print("Nuking is complete!")
+    #     await bot.send('https://tenor.com/view/explosion-mushroom-cloud-atomic-bomb-bomb-boom-gif-4464831')

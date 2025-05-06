@@ -2,3 +2,7 @@ user_points.json
 social_credit_message_id.txt
 .venv/
 venv/
+idea/
+__pycache__/
+.__pycache__/
+confidential.py

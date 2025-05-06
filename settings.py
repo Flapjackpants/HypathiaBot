@@ -1,0 +1,10 @@
+# Settings
+
+# Spam settings
+SPAM_TIME_THRESHOLD = 5  # seconds
+SPAM_MESSAGE_THRESHOLD = 3  # number of similar messages
+SPAM_SIMILARITY_THRESHOLD = 0.8  # similarity ratio for spam detection
+
+# Punishment settings
+PUNISH_THRESHOLDS = [0, 30, 40, 50, 60, 70]  # Social Credit thresholds for punishment
+PUNISHMENT_TIMES = [345600, 86400, 21600, 3600, 1800, 600]  # Punishment times in seconds for each threshold

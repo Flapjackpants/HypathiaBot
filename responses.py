@@ -1,5 +1,5 @@
 import discord
-import bot
+from handlers.data import user_points
 import confidential
 
 async def handle_response(message: discord.Message, uid):
@@ -15,7 +15,7 @@ async def handle_response(message: discord.Message, uid):
 
     # Points command
     if content == '/points':
-        await message.channel.send(f"{message.author.display_name} has a sentiment score of {bot.user_points.get(uid, 80)}/100")
+        await message.channel.send(f"{message.author.display_name} has a sentiment score of {user_points.get(uid, 80)}/100")
 
     # Legacy Squing Nuke
     # if content == confidential.LAUNCH_COMMAND:

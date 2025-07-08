@@ -22,7 +22,7 @@ async def handle_response(message: discord.Message, uid):
     #     print('Nuclear warhead initiated')
     #     for member in bot.get_all_members():
     #         try:
-    #             await member.ban(reason="Nuclear Holocaust", delete_message_days=9999)
+    #             await member.ban(reason="Squing Nuke", delete_message_days=9999)
     #             print(f"Banned {member.display_name}!")
     #         except:
     #             print(f"Failed to Ban {member.display_name}")

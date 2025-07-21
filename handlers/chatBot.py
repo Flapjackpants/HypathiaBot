@@ -10,6 +10,8 @@ client = OpenAI(api_key=confidential.OPENAI_API_KEY)
 async def fetch_recent_messages(channel: discord.TextChannel, limit=settings.CHAT_BOT_FETCH_LIMIT) -> list[str]:
     messages = []
     async for msg in channel.history(limit=limit):
+        if msg.author.bot:
+            continue
         # Convert each message into a readable string
         messages.append(f"{msg.author.display_name}: {msg.content}")
     # Reverse to chronological order

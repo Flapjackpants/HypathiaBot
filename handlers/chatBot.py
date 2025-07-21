@@ -21,7 +21,7 @@ async def generate_response(history: list[str]) -> str:
 
     prompt = "The following is a conversation history:\n\n"
     prompt += "\n".join(history)
-    prompt += "\n\nRespond to the last message in a sarcastic manner."
+    prompt += "\n\nRespond to the last message in a sarcastic yet honest manner, using the message history to imitate the style of a member of the server."
 
     try:
         response = client.chat.completions.create(
@@ -48,12 +48,8 @@ async def handle_chat_bot(bot, message: discord.Message):
     random_chance = (random.randint(1, 100) <= settings.CHAT_BOT_RESPONSE_CHANCE)
 
     if settings.CHAT_BOT_ENABLED and (mentioned or random_chance):
-        try:
-            # Fetch recent messages and respond
-            history = await fetch_recent_messages(message.channel, limit=settings.CHAT_BOT_FETCH_LIMIT)
-            response = await generate_response(history)
-            await message.channel.send(response)
-
-        except Exception as e:
-            print(f"⚠️ handle_chat_bot failed: {e}")
+        # Fetch recent messages and respond
+        history = await fetch_recent_messages(message.channel, limit=settings.CHAT_BOT_FETCH_LIMIT)
+        response = await generate_response(history)
+        await message.channel.send(response)
     

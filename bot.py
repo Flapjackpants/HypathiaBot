@@ -37,7 +37,7 @@ async def on_message(message):
 
     await handle_user_points(message, uid, now)
     await responses.handle_response(message, uid)
-    await update_social_credit_board(bot)
+    await update_social_credit_board(bot, message.guild)
     await handle_chat_bot(bot ,message)
 
 bot.run(confidential.TOKEN)

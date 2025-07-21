@@ -5,13 +5,24 @@ import os
 
 social_credit_message_id = None
 
-async def update_social_credit_board(bot):
+async def clear_channel_messages(channel: discord.TextChannel):
+    """Delete ALL messages in the channel, even older than 14 days."""
+    async for msg in channel.history(limit=None):
+        try:
+            await msg.delete()
+        except discord.HTTPException as e:
+            print(f"⚠️ Failed to delete message {msg.id}: {e}")
+
+async def update_social_credit_board(bot, guild: discord.Guild):
     global social_credit_message_id
 
-    channel = discord.utils.get(bot.get_all_channels(), name="hypathiabot")
+    channel = discord.utils.get(guild.text_channels, name="hypathiabot")
     if channel is None or not isinstance(channel, discord.TextChannel):
         print(f"⚠️ #hypathiabot channel not found or is not a text channel.")
         return
+    
+    print("🧹 Clearing all messages in #hypathiabot...")
+    await clear_channel_messages(channel)
 
     leaderboard = "**📜 Social Credit Scores 📜**\n\n"
     for member_id, score in sorted(user_points.items(), key=lambda x: -x[1]):

@@ -9,6 +9,7 @@ import responses
 from handlers.data import last_message_time
 from handlers.sentiment import handle_user_points
 from handlers.leaderboard import update_social_credit_board
+from handlers.chatBot import handle_chat_bot
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
@@ -36,7 +37,7 @@ async def on_message(message):
 
     await handle_user_points(message, uid, now)
     await responses.handle_response(message, uid)
-
     await update_social_credit_board(bot)
+    await handle_chat_bot(bot ,message)
 
 bot.run(confidential.TOKEN)

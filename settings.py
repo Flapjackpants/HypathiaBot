@@ -8,3 +8,8 @@ SPAM_SIMILARITY_THRESHOLD = 0.8  # similarity ratio for spam detection
 # Punishment settings
 PUNISH_THRESHOLDS = [0, 30, 40, 50, 60, 70]  # Social Credit thresholds for punishment
 PUNISHMENT_TIMES = [345600, 86400, 21600, 3600, 1800, 600]  # Punishment times in seconds for each threshold
+
+# Chat bot settings
+CHAT_BOT_ENABLED = True  # Enable or disable the chat bot
+CHAT_BOT_RESPONSE_CHANCE = 10  # Percentage chance to respond to a message
+CHAT_BOT_FETCH_LIMIT = 10  # Number of recent messages to fetch for chat bot responses

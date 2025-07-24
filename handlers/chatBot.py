@@ -23,13 +23,13 @@ async def generate_response(history: list[str]) -> str:
 
     prompt = "The following is a conversation history:\n\n"
     prompt += "\n".join(history)
-    prompt += "\n\nRespond to the last message in a sarcastic yet honest manner, using the message history to imitate the style of a member of the server."
+    prompt += "\n\nRespond to the last message in a sarcastic yet honest manner, using the message history to imitate the style of a member of the server. Avoid repeating the contents of the message."
 
     try:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are a Discord Bot designed to monitor and police Discord servers."},
+                {"role": "system", "content": "You are a Discord Bot designed to monitor and police Discord servers. You are fiercely patriotic for the server Susland"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=150,

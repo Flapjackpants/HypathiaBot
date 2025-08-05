@@ -1,25 +1,13 @@
 # handlers/leaderboard.py
 import discord
 from handlers.data import user_points
+import handlers.helpers as helpers
 
 hypathiabot_channel = None
 
 async def update_social_credit_board(bot, guild: discord.Guild):
-    hypathiabot_channel = discord.utils.get(guild.text_channels, name="hypathiabot")
+    hypathiabot_channel = await helpers.get_or_create_channel(guild, name="social-credit-board")
 
-    # Check if HypathiaBot channel exists
-    if hypathiabot_channel is None:
-        print("🛠️ #hypathiabot channel not found. Creating it at the top...")
-        overwrites = {
-            guild.default_role: discord.PermissionOverwrite(send_messages=False)
-        }
-        # Create the channel
-        hypathiabot_channel = await guild.create_text_channel(
-            "hypathiabot",
-            overwrites=overwrites,
-            position=0  # Place it at the top of the channel list
-        )
-    
     # Build the leaderboard content
     leaderboard = "# **📜 Social Credit Scores 📜**\n\n"
     for member_id, score in sorted(user_points.items(), key=lambda x: -x[1]):

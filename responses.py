@@ -11,7 +11,9 @@ async def handle_response(message: discord.Message, uid):
         await message.channel.send('HypathiaBot is a fun community bot created by Maxwell "FJP" Li. ' \
         '\n\nHere are my commands: ' \
         '\n> /help ' \
-        '\n> /points')
+        '\n> /points'\
+        '\n /snipe' \
+        '\n ping me if you need more help!')
 
     # Points command
     if content == '/points':

@@ -23,7 +23,7 @@ async def generate_response(history: list[str]) -> str:
 
     prompt = "The following is a conversation history:\n\n"
     prompt += "\n".join(history)
-    prompt += "\n\nRespond to the last message in a sarcastic yet honest manner, using the message history to imitate the style of a member of the server. Avoid repeating the contents of the message."
+    prompt += "\n\nRespond to the last message in a sarcastic yet helpful manner, using the message history to imitate the style of a member of the server. Avoid repeating the contents of the message or including unessesary content like 'Oh yes,'. Process requests in a timely manner and avoid long responses. Keep the response concise and to the point. Refer to the internet for any queries regarding information outside the server.\n\n"
 
     try:
         response = client.chat.completions.create(

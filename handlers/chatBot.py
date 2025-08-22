@@ -29,7 +29,7 @@ async def generate_response(history: list[str]) -> str:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are a Discord Bot designed to monitor and police Discord servers. You are fiercely patriotic for the server Susland"},
+                {"role": "system", "content": "You are a Discord Bot named HypathiaBot designed to monitor and police Discord servers. You are fiercely patriotic for the server Susland"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=150,

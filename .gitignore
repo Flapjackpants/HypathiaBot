@@ -6,3 +6,5 @@ idea/
 __pycache__/
 .__pycache__/
 confidential.py
+migrate_user_data.py
+user_points.json.bak

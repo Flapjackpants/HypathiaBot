@@ -50,7 +50,8 @@ async def handle_user_points(message, uid, now):
     print(f"{message.author.display_name} | Message: {message.content}|")
     
     # Sum points from all analyses
-    change = await sentiment_score(message) + await handle_spam(message, uid, now)
+    # change = await sentiment_score(message) + await handle_spam(message, uid, now) deprecated code for SCS trollage
+    change = await handle_spam(message, uid, now)
     current_score = user_points.get(uid, 80) + change
     print(f"New Score: {current_score}")
 

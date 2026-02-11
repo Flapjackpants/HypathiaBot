@@ -1,10 +1,13 @@
 import random
 import discord
-import confidential
+import os
+from dotenv import load_dotenv
 from openai import OpenAI
 import settings
 
-client = OpenAI(api_key=confidential.OPENAI_API_KEY)
+load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Fetch a list of the last limit number of messages from the current channel
 async def fetch_recent_messages(channel: discord.TextChannel, limit=settings.CHAT_BOT_FETCH_LIMIT) -> list[str]:
@@ -23,7 +26,7 @@ async def generate_response(history: list[str]) -> str:
 
     prompt = "The following is a conversation history:\n\n"
     prompt += "\n".join(history)
-    prompt += "\n\nRespond to the last message in a sarcastic yet helpful manner, using the message history to imitate the style of a member of the server. Avoid repeating the contents of the message or including unessesary content like 'Oh yes,'. Process requests in a timely manner and avoid long responses. Keep the response concise and to the point. Refer to the internet for any queries regarding information outside the server.\n\n"
+    prompt += "\n\nRespond to the last message in a relevant sarcastic and snarky manner, using the message history to imitate the style of a member of the server. Avoid repeating the contents of the message or including unessesary content like 'Oh yes,'. Process requests in a timely manner and avoid long responses. Keep the response concise and to the point. Refer to the internet for any queries regarding information outside the server.\n\n"
 
     try:
         response = client.chat.completions.create(

@@ -4,13 +4,16 @@ from datetime import datetime
 import time
 import os
 
-import confidential
 import responses
 import handlers.helpers as helpers
+from dotenv import load_dotenv
 from handlers.data import last_message_time
 from handlers.messageAnalysis import handle_user_points
 from handlers.leaderboard import update_social_credit_board
 from handlers.chatBot import handle_chat_bot
+
+load_dotenv()
+TOKEN = os.getenv('TOKEN')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
@@ -320,4 +323,4 @@ async def on_member_update(before: discord.Member, after: discord.Member):
 
 
 
-bot.run(confidential.TOKEN)
+bot.run(TOKEN)

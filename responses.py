@@ -1,6 +1,5 @@
 import discord
 from handlers.data import user_points
-import confidential
 
 async def handle_response(message: discord.Message, uid):
     # Set up the content of the message

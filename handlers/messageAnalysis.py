@@ -8,15 +8,15 @@ from handlers.data import last_message_content
 import time
 
 # Message sentiment analysis
-analyzer = SentimentIntensityAnalyzer()
-async def sentiment_score(message):
-    compound = analyzer.polarity_scores(message.content)['compound']
-    print(f"Sentiment: {compound:.2f}")
-    if compound > settings.SENTIMENT_POSITIVE_THRESHOLD:
-        return 1
-    elif compound < settings.SENTIMENT_NEGATIVE_THRESHOLD:
-        return -3
-    return 0
+# analyzer = SentimentIntensityAnalyzer()
+# async def sentiment_score(message):
+#     compound = analyzer.polarity_scores(message.content)['compound']
+#     print(f"Sentiment: {compound:.2f}")
+#     if compound > settings.SENTIMENT_POSITIVE_THRESHOLD:
+#         return 1
+#     elif compound < settings.SENTIMENT_NEGATIVE_THRESHOLD:
+#         return -3
+#     return 0
 
 # Message spam analysis
 async def handle_spam(message, uid, now):

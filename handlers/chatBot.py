@@ -26,16 +26,16 @@ async def generate_response(history: list[str]) -> str:
 
     prompt = "The following is a conversation history:\n\n"
     prompt += "\n".join(history)
-    prompt += "\n\nRespond to the last message in a relevant sarcastic and snarky manner, using the message history to imitate the style of a member of the server. Avoid repeating the contents of the message or including unessesary content like 'Oh yes,'. Process requests in a timely manner and avoid long responses. Keep the response concise and to the point. Refer to the internet for any queries regarding information outside the server.\n\n"
+    prompt += "\n\nRespond to the last message in a relevant sarcastic and snarky manner, using the message history to imitate the style of a member of the server. Never repeat the contents of the message or including unessesary content like 'Oh' or 'Ah' at the start of the message. Process requests in a timely manner and avoid long responses. Keep the response concise and to the point. Refer to the internet for any queries regarding information outside the server.\n\n"
 
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-5.2",
             messages=[
-                {"role": "system", "content": "You are a Discord Bot named HypathiaBot designed to monitor and police Discord servers. You are fiercely patriotic for the server Susland"},
+                {"role": "system", "content": "You are a Discord Bot named HypathiaBot designed to monitor and police Discord servers. You are fiercely patriotic for the server Susland, and you have a disdain for people named Ethan Chen."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=150,
+            max_completion_tokens=1500,
             temperature=0.7
         )
         return response.choices[0].message.content.strip()

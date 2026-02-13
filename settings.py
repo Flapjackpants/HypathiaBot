@@ -1,9 +1,9 @@
 # Settings
 
 # Spam settings
-SPAM_TIME_THRESHOLD = 5  # seconds
-SPAM_MESSAGE_THRESHOLD = 3  # number of similar messages
-SPAM_SIMILARITY_THRESHOLD = 0.8  # similarity ratio for spam detection
+SPAM_TIME_THRESHOLD = 8  # seconds
+SPAM_MESSAGE_THRESHOLD = 5  # number of similar messages
+SPAM_SIMILARITY_THRESHOLD = 0.9  # similarity ratio for spam detection
 
 # Sentiment analysis settings
 SENTIMENT_POSITIVE_THRESHOLD = 0.5  # threshold for positive sentiment

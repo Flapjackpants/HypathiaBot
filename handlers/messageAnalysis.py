@@ -2,6 +2,7 @@
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from handlers.data import user_points, save_points
 from handlers.punish import punish
+import re
 from difflib import SequenceMatcher
 import settings
 from handlers.data import last_message_content
@@ -20,6 +21,15 @@ import time
 
 # Message spam analysis
 async def handle_spam(message, uid, now):
+    # Ignore any users with the role "bot"
+    if message.author.bot or any(role.name.lower() == "bot" for role in message.author.roles):
+        return 0
+
+    # Skip if it's a specific whitelisted command OR starts with a common prefix
+    content = message.content.lower().strip()
+    if content.startswith(settings.WHITELISTED_COMMANDS) or content.startswith(settings.COMMAND_PREFIXES):
+        return 0
+
     if uid not in last_message_content:
         last_message_content[uid] = []
 
@@ -29,6 +39,11 @@ async def handle_spam(message, uid, now):
     ]
     last_message_content[uid].append((now, message.content))
     msgs = last_message_content[uid]
+
+    # Check for mass ping or link spam
+    links = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
+    if len(message.mentions) > settings.MAX_MENTIONS or len(links) > settings.MAX_LINKS:
+        return -15
 
     if len(msgs) >= settings.SPAM_MESSAGE_THRESHOLD:
         recent_msgs = [msg for _, msg in msgs[-settings.SPAM_MESSAGE_THRESHOLD:]]

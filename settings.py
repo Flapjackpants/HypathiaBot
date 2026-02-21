@@ -1,9 +1,13 @@
 # Settings
 
 # Spam settings
-SPAM_TIME_THRESHOLD = 8  # seconds
+SPAM_TIME_THRESHOLD = 5  # seconds
 SPAM_MESSAGE_THRESHOLD = 5  # number of similar messages
-SPAM_SIMILARITY_THRESHOLD = 0.9  # similarity ratio for spam detection
+SPAM_SIMILARITY_THRESHOLD = 0.8  # similarity ratio for spam detection
+MAX_MENTIONS = 5
+MAX_LINKS = 3
+COMMAND_PREFIXES = ("-", "!", "/") 
+WHITELISTED_COMMANDS = ("-random", "-caption", "-speed")
 
 # Sentiment analysis settings
 SENTIMENT_POSITIVE_THRESHOLD = 0.5  # threshold for positive sentiment

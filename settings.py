@@ -1,12 +1,15 @@
 # Settings
 
-# Spam settings
-SPAM_TIME_THRESHOLD = 5  # seconds
-SPAM_MESSAGE_THRESHOLD = 5  # number of similar messages
-SPAM_SIMILARITY_THRESHOLD = 0.8  # similarity ratio for spam detection
+# Auto-moderation settings
+RATE_LIMIT_TIME_THRESHOLD = 5  # seconds — window for counting messages
+RATE_LIMIT_MESSAGE_THRESHOLD = 8  # max messages (any kind) allowed in that window
+RATE_LIMIT_PENALTY = -10  # social credit change when rate limit is exceeded
 MAX_MENTIONS = 5
 MAX_LINKS = 3
-COMMAND_PREFIXES = ("-", "!", "/") 
+MENTION_LINK_PENALTY = -15  # social credit change for mass pings or link spam
+BANNED_WORDS = ("** **", "﷽")  # words/phrases that trigger immediate punishment (case-insensitive)
+BANNED_WORD_PENALTY = -20  # social credit change when a banned word is used
+COMMAND_PREFIXES = ("-", "!", "/")
 WHITELISTED_COMMANDS = ("-random", "-caption", "-speed")
 
 # Sentiment analysis settings

@@ -2,6 +2,7 @@
 from collections import defaultdict
 import os
 import json
+import settings
 
 def load_user_points():
     if os.path.exists("user_points.json") and os.path.getsize("user_points.json") > 0:
@@ -15,7 +16,21 @@ def load_user_points():
 
 user_points = load_user_points()
 last_message_time = {}
-last_message_content = {}
+last_user_messages = {}
+
+def track_user_message(uid, message, now):
+    entries = last_user_messages.setdefault(uid, [])
+    entries[:] = [
+        (t, m) for t, m in entries if now - t < settings.RATE_LIMIT_TIME_THRESHOLD
+    ]
+    entries.append((now, message))
+    return len(entries)
+
+
+def pop_tracked_messages(uid):
+    entries = last_user_messages.pop(uid, [])
+    return [m for _, m in entries]
+
 
 def save_points():
     with open("user_points.json", "w") as f:

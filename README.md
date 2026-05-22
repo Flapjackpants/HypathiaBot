@@ -8,8 +8,8 @@
 - **Comprehensive Logging**  
   Every message, every nickname change, every ban—logged. Track every action with clean embed reports in dedicated logging channels.  
 
-- **Spam Protection**  
-  Detects repeated or similar messages with configurable thresholds, silencing spammers before they flood the chat.  
+- **Auto-Moderation**  
+  Rate-limits any message type (including images) over a configurable window, punishes banned words and mass pings/links, and ignores blank attachment-only messages for content rules.  
 
 - **Emergency Server Wipe**  
   (Use wisely.) For when “delete” just isn’t enough, a single TRVTH NVKE can purge your entire server.  

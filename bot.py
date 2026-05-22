@@ -17,7 +17,6 @@ TOKEN = os.getenv('TOKEN')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
-now = time.time()
 
 @bot.event
 async def on_ready():
@@ -30,6 +29,7 @@ async def on_message(message):
         return
 
     uid = message.author.id
+    now = time.time()
     last_message_time[uid] = now
 
     await handle_user_points(message, uid, now)

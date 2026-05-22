@@ -5,12 +5,14 @@ import time
 import os
 
 import responses
+import settings
 import handlers.helpers as helpers
 from dotenv import load_dotenv
 from handlers.data import last_message_time
 from handlers.messageAnalysis import handle_user_points
 from handlers.leaderboard import update_social_credit_board
 from handlers.chatBot import handle_chat_bot
+from handlers.accountAge import handle_new_account_join
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
@@ -94,13 +96,27 @@ async def on_message_delete(message):
 
 @bot.event
 async def on_member_join(member: discord.Member):
+    banned = await handle_new_account_join(member)
     log_channel = await helpers.get_or_create_channel(member.guild, "server-logs")
-    embed = discord.Embed(
-        title="✅ Member Joined",
-        description=f"{member.mention} (`{member}`)\nID: `{member.id}`",
-        color=discord.Color.green(),
-        timestamp=discord.utils.utcnow()
-    )
+
+    if banned:
+        embed = discord.Embed(
+            title="🚫 New Account Auto-Banned",
+            description=(
+                f"**User:** {member} (`{member.id}`)\n"
+                f"**Account created:** {discord.utils.format_dt(member.created_at, 'R')}\n"
+                f"**Minimum age:** {settings.NEW_ACCOUNT_MIN_AGE_DAYS} days"
+            ),
+            color=discord.Color.dark_red(),
+            timestamp=discord.utils.utcnow(),
+        )
+    else:
+        embed = discord.Embed(
+            title="✅ Member Joined",
+            description=f"{member.mention} (`{member}`)\nID: `{member.id}`",
+            color=discord.Color.green(),
+            timestamp=discord.utils.utcnow(),
+        )
     embed.set_footer(text="Server Log")
     embed.set_thumbnail(url=member.display_avatar.url)
     await log_channel.send(embed=embed)

@@ -11,6 +11,9 @@
 - **Auto-Moderation**  
   Rate-limits any message type (including images) over a configurable window, punishes banned words and mass pings/links, and ignores blank attachment-only messages for content rules.  
 
+- **New Account Ban**  
+  Automatically bans members on join if their Discord account is younger than a configurable age (default 90 days).  
+
 - **Emergency Server Wipe**  
   (Use wisely.) For when “delete” just isn’t enough, a single TRVTH NVKE can purge your entire server.  
 

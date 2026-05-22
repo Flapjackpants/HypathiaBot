@@ -16,6 +16,10 @@ WHITELISTED_COMMANDS = ("-random", "-caption", "-speed")
 SENTIMENT_POSITIVE_THRESHOLD = 0.5  # threshold for positive sentiment
 SENTIMENT_NEGATIVE_THRESHOLD = -0.5  # threshold for negative sentiment
 
+# New account ban (on join)
+NEW_ACCOUNT_BAN_ENABLED = True
+NEW_ACCOUNT_MIN_AGE_DAYS = 90  # ban accounts younger than this (~3 months)
+
 # Punishment settings
 PUNISH_THRESHOLDS = [0, 30, 40, 50, 60, 70]  # Social Credit thresholds for punishment
 PUNISHMENT_TIMES = [345600, 86400, 21600, 3600, 1800, 600]  # Punishment times in seconds for each threshold
